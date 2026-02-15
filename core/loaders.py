@@ -77,3 +77,4 @@ def validate_text_input(text: str) -> str:
         raise ValueError("Input text cannot be empty.")
 
     return text.strip()
+ 
