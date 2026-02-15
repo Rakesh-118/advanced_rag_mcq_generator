@@ -46,3 +46,35 @@ def generate_mcqs_from_prompt(prompt: str, temperature: float = 0.7) -> str:
 
     except Exception as e:
         raise LLMGenerationError(f"MCQ generation failed: {str(e)}")
+
+
+#JSON PARSING
+
+import json
+from pydantic import ValidationError
+from core.schema import MCQList
+
+
+def parse_and_validate_mcqs(raw_response: str) -> MCQList:
+    """
+    Parse raw LLM JSON output and validate using Pydantic schema.
+
+    Args:
+        raw_response: Raw string from LLM
+
+    Returns:
+        Validated MCQList object
+
+    Raises:
+        LLMGenerationError: If parsing or validation fails
+    """
+    try:
+        data = json.loads(raw_response)
+        validated = MCQList(**data)
+        return validated
+
+    except json.JSONDecodeError:
+        raise LLMGenerationError("LLM returned invalid JSON format.")
+
+    except ValidationError as ve:
+        raise LLMGenerationError(f"MCQ schema validation failed: {ve}")
