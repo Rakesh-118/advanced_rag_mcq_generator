@@ -1,5 +1,6 @@
+import os
 from typing import List
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
@@ -36,7 +37,12 @@ def create_vector_store(text: str) -> FAISS:
         documents = [Document(page_content=chunk) for chunk in chunks]
 
         # Step 3: Create embeddings
-        embeddings = OpenAIEmbeddings()
+        embeddings = OpenAIEmbeddings(
+            model="text-embedding-3-small",
+            base_url="https://openrouter.ai/api/v1",
+            openai_api_key=os.getenv("OPENAI_API_KEY")
+        )
+
 
         # Step 4: Build FAISS index
         vector_store = FAISS.from_documents(documents, embeddings)

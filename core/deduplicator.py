@@ -30,7 +30,11 @@ def remove_similar_mcqs(
         if not mcqs:
             return []
 
-        embeddings_model = OpenAIEmbeddings()
+        embeddings_model = OpenAIEmbeddings(
+            model="text-embedding-3-small",
+            base_url="https://openrouter.ai/api/v1"
+        )
+
 
         unique_mcqs = []
         stored_vectors = []

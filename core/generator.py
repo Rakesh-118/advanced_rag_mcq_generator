@@ -34,8 +34,11 @@ def generate_mcqs_from_prompt(prompt: str, temperature: float = 0.7) -> str:
             raise LLMGenerationError("OpenAI API key not found in environment variables.")
 
         llm = ChatOpenAI(
-            model="gpt-4o-mini",
-            temperature=temperature
+            model="openai/gpt-4o-mini",
+            temperature=temperature,
+            openai_api_key=os.getenv("OPENAI_API_KEY"),
+            openai_api_base="https://openrouter.ai/api/v1"
+
         )
 
         response = llm.invoke([
