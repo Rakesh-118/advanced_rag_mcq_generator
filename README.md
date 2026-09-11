@@ -4,6 +4,39 @@ An AI-powered multiple-choice question generator built with **Python, LangChain,
 
 The application accepts educational content as **PDF, DOCX, or plain text**, retrieves relevant content using a vector store, and generates context-aware MCQs based on a selected difficulty level and **Bloom's Taxonomy** level. Users can then take an interactive quiz and receive their score and explanations.
 
+## 📸 Application Screenshots
+
+<table>
+  <tr>
+    <td align="center">
+      <b>Main Interface</b><br><br>
+      <img src="https://github.com/user-attachments/assets/38d890c0-c580-48d1-8d6f-dd4f3d8e2cb2" width="500">
+    </td>
+    <td align="center">
+      <b>Main Interface</b><br><br>
+      <img src="https://github.com/user-attachments/assets/e9f2b41e-e418-461f-9cbf-c7eaf09fe5d0" width="500">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <b>Generated MCQs</b><br><br>
+      <img src="https://github.com/user-attachments/assets/b614e682-87ea-46c5-901d-d7029acdff23" width="500">
+    </td>
+    <td align="center">
+      <b>Quiz Mode</b><br><br>
+      <img src="https://github.com/user-attachments/assets/b8732550-a67d-436e-aa50-0f432c15828c" width="500">
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <b>Results</b><br><br>
+      <img src="https://github.com/user-attachments/assets/f03cd3f4-ca61-4ea5-ab06-f6f0a161e230" width="500">
+    </td>
+  </tr>
+</table>
+
+
+
 ## ✨ Features
 
 - Upload **PDF** or **DOCX** documents
