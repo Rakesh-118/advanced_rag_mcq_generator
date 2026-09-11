@@ -1,50 +1,30 @@
-🧠 Advanced RAG-Based MCQ Generator
+# 🧠 Advanced RAG-Based MCQ Generator
 
-An AI-powered multiple-choice question generator built with Python,
-LangChain, RAG, FAISS, OpenAI-compatible LLM APIs, Pydantic, and
-Streamlit.
+An AI-powered multiple-choice question generator built with **Python, LangChain, RAG, FAISS, OpenAI-compatible LLM APIs, Pydantic, and Streamlit**.
 
-The application accepts educational content as PDF, DOCX, or plain
-text, retrieves relevant content using a vector store, and generates
-context-aware MCQs based on a selected difficulty level and Bloom's
-Taxonomy level. Users can then take an interactive quiz and receive
-their score and explanations.
+The application accepts educational content as **PDF, DOCX, or plain text**, retrieves relevant content using a vector store, and generates context-aware MCQs based on a selected difficulty level and **Bloom's Taxonomy** level. Users can then take an interactive quiz and receive their score and explanations.
 
-✨ Features
+## ✨ Features
 
-Upload PDF or DOCX documents
+- Upload **PDF** or **DOCX** documents
+- Enter raw text directly
+- Generate **1–20 MCQs**
+- Select Easy, Medium, or Hard difficulty
+- Select a Bloom's Taxonomy level: Remember, Understand, Apply, Analyze, Evaluate, or Create
+- Retrieval-Augmented Generation (RAG)
+- Recursive text chunking with overlap
+- Semantic embeddings using `text-embedding-3-small`
+- FAISS vector database for similarity retrieval
+- LLM-based MCQ generation
+- Pydantic-based output validation
+- Semantic deduplication of similar questions
+- Interactive quiz mode
+- Automatic scoring and answer explanations
+- Streamlit user interface
 
-Enter raw text directly
+## 🏗️ Architecture
 
-Generate 1--20 MCQs
-
-Select Easy, Medium, or Hard difficulty
-
-Select a Bloom's Taxonomy level: Remember, Understand, Apply,
-Analyze, Evaluate, or Create
-
-Retrieval-Augmented Generation (RAG)
-
-Recursive text chunking with overlap
-
-Semantic embeddings using text-embedding-3-small
-
-FAISS vector database for similarity retrieval
-
-LLM-based MCQ generation
-
-Pydantic-based output validation
-
-Semantic deduplication of similar questions
-
-Interactive quiz mode
-
-Automatic scoring and answer explanations
-
-Streamlit user interface
-
-🏗️ Architecture
-
+```text
 PDF / DOCX / Text
        │
        ▼
@@ -79,26 +59,28 @@ Semantic MCQ Deduplication
        │
        ▼
 Streamlit MCQ / Quiz Interface
+```
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 
-Category              Technologies
+| Category | Technologies |
+|---|---|
+| Language | Python |
+| LLM Framework | LangChain |
+| Generative AI | OpenAI-compatible Chat API |
+| RAG | LangChain Retrieval + FAISS |
+| Embeddings | `text-embedding-3-small` |
+| Vector Database | FAISS |
+| Document Processing | PyPDF, python-docx |
+| Validation | Pydantic |
+| Similarity | Cosine similarity, scikit-learn |
+| Frontend | Streamlit |
+| Configuration | python-dotenv |
+| Version Control | Git / GitHub |
 
-Language              Python
-LLM Framework         LangChain
-Generative AI         OpenAI-compatible Chat API
-RAG                   LangChain Retrieval + FAISS
-Embeddings            text-embedding-3-small
-Vector Database       FAISS
-Document Processing   PyPDF, python-docx
-Validation            Pydantic
-Similarity            Cosine similarity, scikit-learn
-Frontend              Streamlit
-Configuration         python-dotenv
-Version Control       Git / GitHub
+## 📁 Project Structure
 
-📁 Project Structure
-
+```text
 advanced_rag_mcq_generator/
 │
 ├── app.py
@@ -115,62 +97,34 @@ advanced_rag_mcq_generator/
     ├── schema.py
     ├── deduplicator.py
     └── evaluator.py
+```
 
-Module Overview
+### Module Overview
 
-app.py --- Streamlit UI and orchestration of the complete
-pipeline.
+- **`app.py`** — Streamlit UI and orchestration of the complete pipeline.
+- **`core/loaders.py`** — PDF/DOCX text extraction and raw-text validation.
+- **`core/vectorstore.py`** — Text splitting, embeddings, FAISS indexing, and top-K retrieval.
+- **`core/prompt.py`** — Structured MCQ prompt generation using difficulty and Bloom's Taxonomy.
+- **`core/generator.py`** — Provider-aware LLM invocation, JSON parsing, and Pydantic validation.
+- **`core/provider.py`** — Shared OpenAI/OpenRouter configuration for chat and embedding models.
+- **`core/schema.py`** — Pydantic models for structured MCQ output.
+- **`core/deduplicator.py`** — Embedding-based semantic similarity filtering.
+- **`core/evaluator.py`** — Reserved module; currently contains no implementation.
 
-core/loaders.py --- PDF/DOCX text extraction and raw-text
-validation.
+## 🔄 How the RAG Pipeline Works
 
-core/vectorstore.py --- Text splitting, embeddings, FAISS
-indexing, and top-K retrieval.
-
-core/prompt.py --- Structured MCQ prompt generation using
-difficulty and Bloom's Taxonomy.
-
-core/generator.py --- Provider-aware LLM invocation, JSON
-parsing, and Pydantic validation.
-
-core/provider.py --- Shared OpenAI/OpenRouter configuration
-for chat and embedding models.
-
-core/schema.py --- Pydantic models for structured MCQ output.
-
-core/deduplicator.py --- Embedding-based semantic similarity
-filtering.
-
-core/evaluator.py --- Reserved module; currently contains no
-implementation.
-
-🔄 How the RAG Pipeline Works
-
-The user uploads a PDF/DOCX file or enters text.
-
-The application extracts and validates the content.
-
-Content is split into chunks using RecursiveCharacterTextSplitter.
-
-Each chunk is converted into an embedding.
-
-Embeddings are stored in a FAISS vector store.
-
-The application retrieves the top 5 relevant chunks.
-
-Retrieved content is inserted into a structured MCQ-generation
-prompt.
-
-The LLM generates MCQs in JSON format.
-
-Pydantic validates the generated structure.
-
-Semantically similar questions are filtered using cosine similarity.
-
-The final MCQs are displayed in Streamlit.
-
-The user can take an interactive quiz and receive immediate feedback
-and a final score.
+1. The user uploads a PDF/DOCX file or enters text.
+2. The application extracts and validates the content.
+3. Content is split into chunks using `RecursiveCharacterTextSplitter`.
+4. Each chunk is converted into an embedding.
+5. Embeddings are stored in a FAISS vector store.
+6. The application retrieves the top 5 relevant chunks.
+7. Retrieved content is inserted into a structured MCQ-generation prompt.
+8. The LLM generates MCQs in JSON format.
+9. Pydantic validates the generated structure.
+10. Semantically similar questions are filtered using cosine similarity.
+11. The final MCQs are displayed in Streamlit.
+12. The user can take an interactive quiz and receive immediate feedback and a final score.
 
 🔐 Environment Setup
 
@@ -224,9 +178,9 @@ provider defaults.
 
 .env vs .env.example
 
-File                    Purpose                 Upload to GitHub?
+File Purpose Upload to GitHub?
 
-.env.example          Safe configuration      ✅ Yes
+.env.example Safe configuration      ✅ Yes
 template with
 placeholder values
 
@@ -328,152 +282,65 @@ Then open the local URL shown by Streamlit, usually:
 
 http://localhost:8501
 
-6. Verify the setup
 
-The application should be able to:
+## 🎮 Usage
 
-Load PDF, DOCX, or plain text input.
+1. Enter text or upload a PDF/DOCX document.
+2. Select the number of questions.
+3. Select difficulty.
+4. Select a Bloom's Taxonomy level.
+5. Click **Generate MCQs**.
+6. Review the generated questions, answers, and explanations.
+7. Click **Start Quiz** to attempt the questions.
+8. Submit answers to receive feedback.
+9. View the final score after completing the quiz.
 
-Create embeddings.
-
-Build the FAISS vector store.
-
-Retrieve relevant chunks.
-
-Generate MCQs with the selected AI provider.
-
-Validate and deduplicate the generated questions.
-
-If you receive an authentication or missing-credentials error, check
-that .env is in the project root and that AI_PROVIDER and
-OPENAI_API_KEY are set correctly.
-
-If you receive a native DLL/application-control error on Windows
-involving FAISS or lxml, the issue may be related to Windows security
-policy rather than the Python source code or API credentials.
-
-📦 Dependency Notes
-
-The main dependencies include:
-
-Python 3.12.x --- recommended runtime
-
-Streamlit --- web application interface
-
-LangChain --- RAG/LLM orchestration
-
-langchain-openai --- OpenAI-compatible chat and embedding
-integrations
-
-FAISS CPU --- vector similarity search
-
-PyPDF --- PDF text extraction
-
-python-docx --- DOCX text extraction
-
-Pydantic --- structured MCQ validation
-
-scikit-learn --- cosine similarity for semantic deduplication
-
-python-dotenv --- loading .env configuration
-
-Install the exact dependencies listed in requirements.txt rather than
-installing the packages one by one.
-
-🎮 Usage
-
-Enter text or upload a PDF/DOCX document.
-
-Select the number of questions.
-
-Select difficulty.
-
-Select a Bloom's Taxonomy level.
-
-Click Generate MCQs.
-
-Review the generated questions, answers, and explanations.
-
-Click Start Quiz to attempt the questions.
-
-Submit answers to receive feedback.
-
-View the final score after completing the quiz.
-
-🔍 Semantic Deduplication
+## 🔍 Semantic Deduplication
 
 Generated questions are checked for semantic similarity using:
 
-text-embedding-3-small
+- `text-embedding-3-small`
+- Cosine similarity
+- Default similarity threshold: **0.85**
 
-Cosine similarity
+Questions that are too similar to an already accepted question are filtered from the final result.
 
-Default similarity threshold: 0.85
-
-Questions that are too similar to an already accepted question are
-filtered from the final result.
-
-🧩 Error Handling
+## 🧩 Error Handling
 
 The application defines custom exceptions for major pipeline stages:
 
-DocumentLoaderError
+- `DocumentLoaderError`
+- `VectorStoreError`
+- `PromptBuilderError`
+- `LLMGenerationError`
+- `DeduplicationError`
 
-VectorStoreError
+This helps the application return meaningful error messages for common failures.
 
-PromptBuilderError
+## 📌 Current Limitations
 
-LLMGenerationError
+- The FAISS vector store is created in memory for each generation request.
+- The current retrieval query is fixed rather than dynamically derived from the user's topic.
+- The application requires an external LLM/embedding API from OpenAI or OpenRouter.
+- Scanned/image-only PDFs without extractable text are not supported by the current PDF loader.
+- The current DOCX loader extracts paragraph text but does not process tables.
+- Automated tests are not currently included.
+- `core/evaluator.py` is currently reserved and has no implementation.
 
-DeduplicationError
+## 🔮 Possible Future Improvements
 
-This helps the application return meaningful error messages for common
-failures.
+- Add automated unit and integration tests
+- Persist FAISS indexes between sessions
+- Add support for additional document formats
+- Add table/image extraction
+- Improve retrieval with metadata filtering and configurable strategies
+- Add automated MCQ quality evaluation
+- Make LLM and embedding models configurable
+- Add deployment configuration
+- Include source references for generated questions
 
-📌 Current Limitations
+## 👨‍💻 Author
 
-The FAISS vector store is created in memory for each generation
-request.
-
-The current retrieval query is fixed rather than dynamically derived
-from the user's topic.
-
-The application requires an external LLM/embedding API from OpenAI
-or OpenRouter.
-
-Scanned/image-only PDFs without extractable text are not supported
-by the current PDF loader.
-
-The current DOCX loader extracts paragraph text but does not process
-tables.
-
-Automated tests are not currently included.
-
-core/evaluator.py is currently reserved and has no implementation.
-
-🔮 Possible Future Improvements
-
-Add automated unit and integration tests
-
-Persist FAISS indexes between sessions
-
-Add support for additional document formats
-
-Add table/image extraction
-
-Improve retrieval with metadata filtering and configurable
-strategies
-
-Add automated MCQ quality evaluation
-
-Make LLM and embedding models configurable
-
-Add deployment configuration
-
-Include source references for generated questions
-
-👨‍💻 Author
-
-Rakesh Kumar Pandeeti
+**Rakesh Kumar Pandeeti**
 
 Computer Science | Generative AI | RAG | Python
