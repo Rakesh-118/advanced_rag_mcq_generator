@@ -4,6 +4,19 @@ An AI-powered multiple-choice question generator built with **Python, LangChain,
 
 The application accepts educational content as **PDF, DOCX, or plain text**, retrieves relevant content using a vector store, and generates context-aware MCQs based on a selected difficulty level and **Bloom's Taxonomy** level. Users can then take an interactive quiz and receive their score and explanations.
 
+# Advanced RAG-Based MCQ Generator
+
+A Retrieval-Augmented Generation (RAG) based application that generates
+high-quality multiple-choice questions from uploaded documents.
+
+## 🚀 Live Demo
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://advanced-rag-mcq-generator.streamlit.app/)
+
+👉 **[Try the Advanced RAG-Based MCQ Generator](https://advanced-rag-mcq-generator.streamlit.app/)**
+
+## ✨ Features
+
 ## 📸 Application Screenshots
 
 <table>
